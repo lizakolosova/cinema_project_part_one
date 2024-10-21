@@ -1,17 +1,35 @@
 package org.example.projectcinema;
 
-
 import org.example.projectcinema.domain.Cinema;
 import org.example.projectcinema.domain.CinemaScreen;
 import org.example.projectcinema.domain.Genre;
 import org.example.projectcinema.domain.Movie;
 import org.example.projectcinema.repository.CinemaRepository;
 import org.example.projectcinema.repository.MovieRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 
-public class DataFactory {
-    public static void seedData(CinemaRepository cinemaRepository, MovieRepository movieRepository) {
+@Component
+public class DataFactory implements CommandLineRunner {
+
+    private final CinemaRepository cinemaRepository;
+    private final MovieRepository movieRepository;
+
+    @Autowired
+    public DataFactory(CinemaRepository cinemaRepository, MovieRepository movieRepository) {
+        this.cinemaRepository = cinemaRepository;
+        this.movieRepository = movieRepository;
+    }
+
+    @Override
+    public void run(String... args) {
+        seedData();
+    }
+
+    public void seedData() {
         Cinema cinema1 = new Cinema("Cinema 1", "127 Kattenstraat", 200);
         Cinema cinema2 = new Cinema("Cinema 2", "365 Pothoekstraat", 150);
         Cinema cinema3 = new Cinema("Cinema 3", "398 Predikerinnenstraat", 300);
@@ -20,6 +38,7 @@ public class DataFactory {
         cinemaRepository.save(cinema1);
         cinemaRepository.save(cinema2);
         cinemaRepository.save(cinema3);
+        cinemaRepository.save(cinema4);
 
         CinemaScreen screen1 = new CinemaScreen(1, cinema1, "IMAX", 100);
         CinemaScreen screen2 = new CinemaScreen(2, cinema1, "Regular", 50);

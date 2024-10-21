@@ -1,6 +1,5 @@
 package org.example.projectcinema;
 
-import org.example.projectcinema.presentation.CinemaConsolePresenter;
 import org.example.projectcinema.repository.InMemoryCinemaRepository;
 import org.example.projectcinema.repository.InMemoryMovieRepository;
 import org.example.projectcinema.service.CinemaServiceImpl;
@@ -10,18 +9,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import java.util.Scanner;
-
-
 @SpringBootApplication
 public class CinemaApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(CinemaApplication.class, args);
-    }
-    @Bean
-    public Scanner scanner() {
-        return new Scanner(System.in);
     }
 
     @Bean
@@ -45,18 +37,9 @@ public class CinemaApplication {
     }
 
     @Bean
-    public CommandLineRunner run(CinemaConsolePresenter cinemaConsolePresenter) {
+    public CommandLineRunner run(DataFactory dataFactory) {
         return args -> {
-            cinemaConsolePresenter.run();
-        };
-    }
-    @Bean
-    CommandLineRunner dataSeedingRunner(CinemaConsolePresenter cinemaConsolePresenter,
-                                        InMemoryCinemaRepository cinemaRepository,
-                                        InMemoryMovieRepository movieRepository) {
-        return args -> {
-            DataFactory.seedData(cinemaRepository, movieRepository);
-            cinemaConsolePresenter.run();
+            dataFactory.seedData();
         };
     }
 }

@@ -1,6 +1,4 @@
 package org.example.projectcinema;
-
-import org.example.projectcinema.presentation.CinemaConsolePresenter;
 import org.example.projectcinema.repository.InMemoryCinemaRepository;
 import org.example.projectcinema.repository.InMemoryMovieRepository;
 import org.example.projectcinema.service.CinemaServiceImpl;
@@ -9,7 +7,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
 
 @SpringBootApplication
 public class CinemaApplication {
@@ -39,10 +36,9 @@ public class CinemaApplication {
     }
 
     @Bean
-    public CommandLineRunner run(CinemaConsolePresenter cinemaConsolePresenter) {
+    public CommandLineRunner run(DataFactory dataFactory) {
         return args -> {
-            // Optionally seed data here if needed
-            cinemaConsolePresenter.run();
+            dataFactory.run();
         };
     }
 }
