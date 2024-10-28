@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.0/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+    <title th:text="#{cinema.details.title}">Cinema Details</title>
+</head>
+<body class="pb-4">
+<div th:insert="~{fragments :: navbar}"></div>
+
+<div class="container pb-5">
+    <div th:if="${cinema != null}" class = "mb-3">
+        <h1 th:text="${cinema.name}">Cinema Name</h1>
+        <div class="card">
+            <div class="card-body">
+                <img th:src="@{/images/{image}(image=${cinema.image})}" alt="Image of [[${cinema.name}]]" class="card-img-top" style="max-height: 500px; object-fit: cover;"  />
+                <!-- <img th:src="@{/images/{image}(image=${cinema.image})}" class="card-img-top img-fluid" alt="Image of [[${cinema.name}]]" style="max-height: 150px; object-fit: cover;" />-->
+                 <p class="card-title" th:text="#{card.capacity} + ' ' + ${cinema.capacity}"></p>
+                 <p class="card-text" th:text="#{card.address} + ' ' + ${cinema.address}"></p>
+             </div>
+         </div>
+     </div>
+     <div th:if="${cinema == null}">
+         <p>Cinema not found.</p>
+     </div>
+
+     <a th:href="@{/cinemas}" class="btn btn-light text-dark border border-dark">Back to Cinemas</a>
+ </div>
+
+ <div th:insert="~{fragments :: footer}"></div>
+ </body>
+ </html>

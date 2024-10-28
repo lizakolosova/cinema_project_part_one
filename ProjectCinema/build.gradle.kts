@@ -22,6 +22,9 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+    implementation ("org.webjars:bootstrap:5.3.0")
+    implementation ("org.webjars:jquery:3.6.0")
 }
 
 tasks.withType<Test> {
