@@ -7,6 +7,10 @@ import java.util.List;
 
 public interface MovieRepository {
     List<Movie> findAll();
-    void save(Movie movie);
+    Movie save(Movie movie);
+    Movie findById(int id);
+    void update(Movie movie);
+    void deleteById(int id);
+    Movie findByIdWithCinemas(int Id);
 }
 

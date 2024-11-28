@@ -3,9 +3,11 @@ package org.example.projectcinema.service;
 
 import org.example.projectcinema.domain.Genre;
 import org.example.projectcinema.domain.Movie;
+import org.example.projectcinema.presentation.converters.StringToGenreConverter;
 import org.example.projectcinema.repository.MovieRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,10 +15,12 @@ import java.util.stream.Collectors;
 @Service
 public class MovieServiceImpl implements MovieService {
     private final MovieRepository movieRepository;
+    private final StringToGenreConverter stringToGenreConverter;
     private static final Logger logger = LoggerFactory.getLogger(MovieServiceImpl.class);
 
-    public MovieServiceImpl(MovieRepository movieRepository) {
+    public MovieServiceImpl(MovieRepository movieRepository, StringToGenreConverter stringToGenreConverter) {
         this.movieRepository = movieRepository;
+        this.stringToGenreConverter = stringToGenreConverter;
     }
 
     @Override
@@ -36,20 +40,22 @@ public class MovieServiceImpl implements MovieService {
     public void addMovie(Movie movie) {
         movieRepository.save(movie);
     }
-    public Movie findByTitle(String title) {
-        String trimmedTitle = title.trim();
-        logger.debug("Searching for movie with name: {}", trimmedTitle);
 
-        List<Movie> movies = movieRepository.findAll();
-        logger.debug("Current movies in the repository: {}", movies.stream().map(Movie::getTitle).collect(Collectors.toList()));
+    @Override
+    public List<Movie> getFilteredMovies(String genreInput, Double rating) {
+        Genre genre = null;
+        if (genreInput != null && !genreInput.isEmpty()) {
+            genre = stringToGenreConverter.convert(genreInput);
+        }
 
-        return movies.stream()
-                .filter(cinema -> {
-                    boolean matches = cinema.getTitle().equalsIgnoreCase(trimmedTitle);
-                    logger.debug("Comparing with movie: {}. Matches: {}", cinema.getTitle(), matches);
-                    return matches;
-                })
-                .findFirst()
-                .orElse(null);
+        return getMoviesByGenreAndRating(genre, rating);
+    }
+    @Override
+    public Movie findByIdWithCinemas(int id) {
+        return movieRepository.findByIdWithCinemas(id);
+    }
+    @Override
+    public void deleteById(int id) {
+        movieRepository.deleteById(id);
     }
 }

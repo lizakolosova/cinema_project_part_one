@@ -28,33 +28,22 @@ public class CinemaServiceImpl implements CinemaService {
     @Override
     public List<Cinema> getCinemasByCapacity(int minCapacity) {
         return cinemaRepository.findAll().stream()
-                .filter(cinema -> cinema.getCapacity() >= minCapacity) // Ensure getCapacity() is defined in your Cinema class
+                .filter(cinema -> cinema.getCapacity() >= minCapacity)
                 .collect(Collectors.toList());
     }
 
+    @Override
     public void saveCinema(Cinema cinema) {
-        logger.debug("Saving cinema: {}", cinema.getName()); // Ensure getName() is defined in your Cinema class
+        logger.debug("Saving cinema: {}", cinema.getName());
         cinemaRepository.save(cinema);
     }
 
-    public void addCinema(Cinema cinema) {
-        cinemaRepository.save(cinema);
+    @Override
+    public Cinema findByIdWithMovies(int id) {
+        return cinemaRepository.findByIdWithMovies(id);
     }
-
-    public Cinema findByName(String name) {
-        String trimmedName = name.trim(); // Trim whitespace
-        logger.debug("Searching for cinema with name: {}", trimmedName);
-
-        List<Cinema> cinemas = cinemaRepository.findAll(); // Fetch the current cinemas from the repository
-        logger.debug("Current cinemas in the repository: {}", cinemas.stream().map(Cinema::getName).collect(Collectors.toList()));
-
-        return cinemas.stream()
-                .filter(cinema -> {
-                    boolean matches = cinema.getName().equalsIgnoreCase(trimmedName); // Use equalsIgnoreCase for case-insensitive comparison
-                    logger.debug("Comparing with cinema: {}. Matches: {}", cinema.getName(), matches);
-                    return matches;
-                })
-                .findFirst()
-                .orElse(null);
+    @Override
+    public void deleteById(int id) {
+        cinemaRepository.deleteById(id);
     }
 }

@@ -4,22 +4,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CinemaScreen {
+    private int Id;
     private int screenNumber;
     private Cinema cinema;
     private String screenType;
     private int size;
     private List<Movie> movies;
 
-    public CinemaScreen(int screenNumber, Cinema cinema, String screenType, int size) {
+    public CinemaScreen(int screenNumber, String screenType, int size) {
         this.screenNumber = screenNumber;
-        this.cinema = cinema;
         this.screenType = screenType;
         this.size = size;
-        this.movies = new ArrayList<>();
     }
 
-    public void addMovie(Movie movie) {
-        movies.add(movie);
+    public int getsId() {
+        return Id;
+    }
+
+    public void setsId(int sId) {
+        this.Id = sId;
     }
 
     public int getScreenNumber() {
@@ -40,6 +43,13 @@ public class CinemaScreen {
 
     public List<Movie> getMovies() {
         return movies;
+    }
+public void setMovies(List<Movie> movies) {
+        this.movies = movies;
+}
+    public void addMovie(Movie movie) {
+        this.movies.add(movie);
+        movie.addScreen(this);
     }
 
 

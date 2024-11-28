@@ -1,6 +1,10 @@
 package org.example.projectcinema;
-import org.example.projectcinema.repository.InMemoryCinemaRepository;
+import org.example.projectcinema.presentation.converters.StringToGenreConverter;
+import org.example.projectcinema.repository.CinemaRepository;
 import org.example.projectcinema.repository.InMemoryMovieRepository;
+import org.example.projectcinema.repository.JdbcCinemaRepository;
+import org.example.projectcinema.repository.JdbcMovieRepository;
+import org.example.projectcinema.repository.MovieRepository;
 import org.example.projectcinema.service.CinemaServiceImpl;
 import org.example.projectcinema.service.MovieServiceImpl;
 import org.springframework.boot.CommandLineRunner;
@@ -16,29 +20,22 @@ public class CinemaApplication {
     }
 
     @Bean
-    public InMemoryCinemaRepository cinemaRepository() {
-        return new InMemoryCinemaRepository();
+    public CinemaRepository cinemaRepository() {
+        return new JdbcCinemaRepository();
     }
 
     @Bean
-    public InMemoryMovieRepository movieRepository() {
-        return new InMemoryMovieRepository();
+    public MovieRepository movieRepository() {
+        return new JdbcMovieRepository();
     }
 
     @Bean
-    public CinemaServiceImpl cinemaService(InMemoryCinemaRepository cinemaRepository) {
+    public CinemaServiceImpl cinemaService(CinemaRepository cinemaRepository) {
         return new CinemaServiceImpl(cinemaRepository);
     }
 
     @Bean
-    public MovieServiceImpl movieService(InMemoryMovieRepository movieRepository) {
-        return new MovieServiceImpl(movieRepository);
-    }
-
-    @Bean
-    public CommandLineRunner run(DataFactory dataFactory) {
-        return args -> {
-            dataFactory.run();
-        };
+    public MovieServiceImpl movieService(MovieRepository movieRepository, StringToGenreConverter stringToGenreConverter) {
+        return new MovieServiceImpl(movieRepository, stringToGenreConverter);
     }
 }

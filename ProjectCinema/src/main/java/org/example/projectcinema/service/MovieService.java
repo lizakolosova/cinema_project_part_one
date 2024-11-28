@@ -8,7 +8,9 @@ import java.util.List;
 
 public interface MovieService {
     List<Movie> getAllMovies();
-    public List<Movie> getMoviesByGenreAndRating(Genre genre, Double rating);
+    List<Movie> getMoviesByGenreAndRating(Genre genre, Double rating);
     void addMovie(Movie movie);
-    public Movie findByTitle(String title);
+    List<Movie> getFilteredMovies(String genreInput, Double rating);
+    Movie findByIdWithCinemas(int id);
+    void  deleteById(int id);
 }

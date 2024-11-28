@@ -15,16 +15,28 @@
         <div class="card">
             <div class="card-body">
                 <img th:src="@{/images/{image}(image=${cinema.image})}" alt="Image of [[${cinema.name}]]" class="card-img-top" style="max-height: 500px; object-fit: cover;"  />
-                <!-- <img th:src="@{/images/{image}(image=${cinema.image})}" class="card-img-top img-fluid" alt="Image of [[${cinema.name}]]" style="max-height: 150px; object-fit: cover;" />-->
                  <p class="card-title" th:text="#{card.capacity} + ' ' + ${cinema.capacity}"></p>
                  <p class="card-text" th:text="#{card.address} + ' ' + ${cinema.address}"></p>
              </div>
          </div>
-     </div>
-     <div th:if="${cinema == null}">
-         <p>Cinema not found.</p>
-     </div>
-
+        <h2 th:text="#{cinema.movies.title}">Movies that are shown in this cinema</h2>
+        <div class = "row">
+            <div th:each="movie :  ${cinema.movies}" class="col-lg-3 col-md-6 col-sm-12 mb-4">
+                <div class="card h-100">
+                    <a th:href="@{/movie-details/{id}(id=${movie.id})}" class="stretched-link"></a>
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${movie.title}">Cinema Name</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <div th:if="${cinema.movies == null || #lists.isEmpty(cinema.movies)}">
+            <p th:text="#{cinema.no.movies}">No movies available for this cinema.</p>
+        </div>
+    <div th:if="${cinema == null}">
+        <p th:text="#{cinema.not.found}">Cinema not found.</p>
+    </div>
      <a th:href="@{/cinemas}" class="btn btn-light text-dark border border-dark">Back to Cinemas</a>
  </div>
 
