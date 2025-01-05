@@ -2,11 +2,12 @@ package org.example.projectcinema.presentation.controller;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
-import org.example.projectcinema.presentation.converters.CinemaViewModelToCinemaConverter;
-import org.example.projectcinema.presentation.viewmodels.CinemaViewModel;
+import org.example.projectcinema.exceptions.CinemaNotFoundException;
+import org.example.projectcinema.presentation.converter.CinemaViewModelToCinemaConverter;
+import org.example.projectcinema.presentation.viewmodel.CinemaViewModel;
 import org.example.projectcinema.domain.Cinema;
 import org.example.projectcinema.service.CinemaService;
-import org.example.projectcinema.service.SessionHistoryServiceImpl;
+import org.example.projectcinema.service.collections.SessionHistoryServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 import java.util.List;
@@ -33,6 +33,7 @@ public class CinemaController {
         this.cinemaService = cinemaService;
         this.converter = converter;
         this.sessionHistoryService = sessionHistoryService;
+
     }
 
     @GetMapping("/cinemas")
@@ -56,9 +57,8 @@ public class CinemaController {
 
     @GetMapping("/addcinema")
     public String showAddCinemaForm(Model model, HttpSession session) {
-        logger.info("Displaying form to add new cinema");
         model.addAttribute("cinemaViewModel", new CinemaViewModel());
-        sessionHistoryService.addPageVisit(session,"Add cinema Page");
+        sessionHistoryService.addPageVisit(session, "Add cinema Page");
         return "addcinema";
     }
 
@@ -73,38 +73,55 @@ public class CinemaController {
             model.addAttribute("cinemaViewModel", cinemaViewModel);
             return "addcinema";
         }
-
         logger.info("Processing cinema addition request: {}", cinemaViewModel.getName());
 
         Cinema cinema = converter.convert(cinemaViewModel);
-
-        try {
-            cinemaService.saveCinema(cinema);
-            logger.info("Cinema added successfully: {}", cinema.getName());
-        } catch (IllegalArgumentException e) {
-            logger.error("Error while adding cinema: {}", e.getMessage());
-            model.addAttribute("error", e.getMessage());
-            return "addcinema";
-        }
-
+        cinemaService.saveCinema(cinema);
         return "redirect:/cinemas";
     }
-
     @GetMapping("/cinema-details/{id}")
-    public String viewCinemaDetails(@PathVariable int id, Model model, HttpSession session) {
-        Cinema cinema = cinemaService.findByIdWithMovies(id);
-        if (cinema == null) {
-            model.addAttribute("error", "Cinema not found");
-            return "error-page";
+    public String viewCinemaDetails(@PathVariable Long id, Model model, HttpSession session) {
+        try {
+            Cinema cinema = cinemaService.findByIdWithMovies(id);
+            model.addAttribute("cinema", cinema);
+            sessionHistoryService.addPageVisit(session, "Cinema details Page");
+            return "cinema-details";
+        } catch (CinemaNotFoundException ex) {
+            logger.error("Cinema not found with id: {}", id);
+            model.addAttribute("message", ex.getMessage());
+            model.addAttribute("condition", ex.getCondition());
+            model.addAttribute("time",  ex.getTime());
+            return "other-error";
         }
-        model.addAttribute("cinema", cinema);
-        sessionHistoryService.addPageVisit(session,"Cinema details Page");
-        return "cinema-details";
     }
     @GetMapping("/cinemas/delete/{id}")
-    public String deleteCinema(@PathVariable int id, RedirectAttributes redirectAttributes) {
+    public String deleteCinema(@PathVariable Long id) {
         cinemaService.deleteById(id);
-        redirectAttributes.addFlashAttribute("message", "Cinema deleted successfully.");
         return "redirect:/cinemas";
+    }
+
+    @GetMapping("/name")
+    public String searchByNameForm(@RequestParam(required = false) String name, Model model) {
+            model.addAttribute("cinemas", cinemaService.findByName(name));
+        return "cinemas-by-name";
+    }
+
+    @PostMapping("/name")
+    public String searchByName(@RequestParam("name") String name, Model model) {
+        model.addAttribute("cinemas", cinemaService.findByName(name));
+        return "cinemas-by-name";
+    }
+
+    @GetMapping("/address")
+    public String searchByAddressForm(@RequestParam(required = false) String address, Model model) {
+            model.addAttribute("cinemas", cinemaService.findCinemasByAddress(address));
+        return "cinemas-by-address";
+    }
+
+    @PostMapping("/address")
+    public String searchByAddress(@RequestParam("address") String address, Model model) {
+        model.addAttribute("cinemas", cinemaService.findCinemasByAddress(address));
+        logger.info("Fetching cinemas by address: {}", address);
+        return "cinemas-by-address";
     }
 }

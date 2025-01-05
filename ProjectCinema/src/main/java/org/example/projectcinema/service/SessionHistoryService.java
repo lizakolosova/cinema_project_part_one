@@ -5,6 +5,6 @@ import jakarta.servlet.http.HttpSession;
 import java.util.List;
 
 public interface SessionHistoryService {
-    public void addPageVisit(HttpSession session, String pageName);
-    public List<String> getHistory(HttpSession session);
+    void addPageVisit(HttpSession session, String pageName);
+    List<String> getHistory(HttpSession session);
 }

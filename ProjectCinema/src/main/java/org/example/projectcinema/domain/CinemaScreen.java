@@ -1,60 +1,63 @@
 package org.example.projectcinema.domain;
 
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Entity
+@Setter
 public class CinemaScreen {
-    private int Id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long Id;
     private int screenNumber;
+
+    @ManyToOne
+    @JoinColumn(name = "cinema_id")
     private Cinema cinema;
+
     private String screenType;
     private int size;
-    private List<Movie> movies;
 
+    @ManyToMany(mappedBy = "screens")
+    private List<Movie> movies = new ArrayList<>();
+
+    public CinemaScreen() {
+
+    }
+
+    public CinemaScreen(int screenNumber, Cinema cinema, String screenType, int size) {
+        this.screenNumber = screenNumber;
+        this.cinema = cinema;
+        this.screenType = screenType;
+        this.size = size;
+        this.movies = new ArrayList<>();
+    }
+    
     public CinemaScreen(int screenNumber, String screenType, int size) {
         this.screenNumber = screenNumber;
         this.screenType = screenType;
         this.size = size;
+        this.movies = new ArrayList<>();
+        this.cinema = new Cinema();
     }
 
-    public int getsId() {
-        return Id;
-    }
 
-    public void setsId(int sId) {
-        this.Id = sId;
-    }
-
-    public int getScreenNumber() {
-        return screenNumber;
-    }
-
-    public Cinema getCinema() {
-        return cinema;
-    }
-
-    public String getScreenType() {
-        return screenType;
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    public List<Movie> getMovies() {
-        return movies;
-    }
-public void setMovies(List<Movie> movies) {
-        this.movies = movies;
-}
     public void addMovie(Movie movie) {
-        this.movies.add(movie);
-        movie.addScreen(this);
+        if (!movies.contains(movie)) {
+            this.movies.add(movie);
+            movie.addScreen(this);
+        }
     }
-
 
     @Override
     public String toString() {
         return "Cinema Screen " + screenNumber + " - Type: " + screenType + ", Size: " + size;
     }
+
 }

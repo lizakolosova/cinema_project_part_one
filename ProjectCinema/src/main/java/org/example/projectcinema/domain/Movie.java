@@ -1,16 +1,25 @@
 package org.example.projectcinema.domain;
 
 
+import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.Positive;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+
+@Entity
+@Getter
+@Setter
 public class Movie {
-    private int Id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String title;
     private LocalDate releaseDate;
 
@@ -18,13 +27,19 @@ public class Movie {
     @DecimalMax(value = "10.0", message = "Rating must not exceed 10.")
     private double rating;
 
+    @Enumerated(EnumType.STRING)
     private Genre genre;
+
     private String image;
-    private List<CinemaScreen> screens  = new ArrayList<>();
+
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    private List<CinemaScreen> screens = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "movies", cascade = CascadeType.PERSIST)
     private List<Cinema> cinemas = new ArrayList<>();
 
-    public Movie(int Id, String title, LocalDate releaseDate, double rating, Genre genre, String image) {
-        this.Id = Id;
+    public Movie(Long id, String title, LocalDate releaseDate, double rating, Genre genre, String image) {
+        this.id = id;
         this.title = title;
         this.releaseDate = releaseDate;
         this.rating = rating;
@@ -38,68 +53,25 @@ public class Movie {
         this.rating = rating;
         this.genre = genre;
         this.image = image;
+        this.screens = new ArrayList<>();
+        this.cinemas = new ArrayList<>();
     }
+
     public Movie() {
     }
 
-    public int getId() {
-        return Id;
-    }
-
-    public void setId(int id) {
-        Id = id;
-    }
-
-    public Genre getGenre() {
-        return genre;
-    }
-
-    public double getRating() {
-        return rating;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public LocalDate getReleaseDate() {
-        return releaseDate;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setReleaseDate(LocalDate releaseDate) {
-        this.releaseDate = releaseDate;
-    }
-
-    public void setRating(double rating) {
-        this.rating = rating;
-    }
-
-    public void setGenre(Genre genre) {
-        this.genre = genre;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
 
     public void addScreen(CinemaScreen screen) {
-        screens.add(screen);
+        if(!this.screens.contains(screen)) {
+            this.screens.add(screen);
+            screen.addMovie(this);
+        }
     }
 
-    public List<Cinema> getCinemas() {
-        return cinemas;
-    }
-
-    public void setCinemas(List<Cinema> cinemas) {
-        this.cinemas = cinemas;
+    public void addCinema(Cinema cinema) {
+        if (!this.cinemas.contains(cinema)) {
+            this.cinemas.add(cinema);
+        }
     }
 
     @Override
