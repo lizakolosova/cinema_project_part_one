@@ -18,7 +18,7 @@ public interface CinemaRepositorySpringJPA extends JpaRepository<Cinema, Long> {
 
     List<Cinema> findCinemaByCapacityAfter(int capacity);
 
-    @Query("SELECT c FROM Cinema c LEFT JOIN FETCH c.movies WHERE c.id = :id")
+    @Query("SELECT c FROM Cinema c LEFT JOIN c.movies WHERE c.id = :id")
     Cinema findByIdWithMovies(Long id);
 }
 

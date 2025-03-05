@@ -2,8 +2,6 @@ package org.example.projectcinema.domain;
 
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.DecimalMax;
-import jakarta.validation.constraints.DecimalMin;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,8 +21,6 @@ public class Movie {
     private String title;
     private LocalDate releaseDate;
 
-    @DecimalMin(value = "0.0", message = "Rating must be at least 0.")
-    @DecimalMax(value = "10.0", message = "Rating must not exceed 10.")
     private double rating;
 
     @Enumerated(EnumType.STRING)

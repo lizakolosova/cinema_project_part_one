@@ -19,6 +19,7 @@ public class InMemoryMovieRepository implements MovieRepository {
     private static final Logger logger = LoggerFactory.getLogger(InMemoryMovieRepository.class);
 
     private final List<Movie> movies = new ArrayList<>();
+    private long currentId = 1;
 
     @Override
     public List<Movie> findAll() {
@@ -35,10 +36,15 @@ public class InMemoryMovieRepository implements MovieRepository {
             throw new IllegalArgumentException("Movie cannot be null");
         }
 
+        if (movie.getId() == null) {
+            movie.setId(currentId++);
+        }
+
         movies.add(movie);
         logger.info("Movie '{}' has been successfully saved. Total number of movies: {}", movie.getTitle(), movies.size());
         return movie;
     }
+
     @Override
     public void deleteById(Long id) {
         boolean removed = movies.removeIf(movie -> movie.getId() == id);

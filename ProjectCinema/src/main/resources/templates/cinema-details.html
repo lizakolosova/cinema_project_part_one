@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
 <head>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.0/css/bootstrap.min.css}" />
-    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <link rel="icon" th:href="@{/icons/icon.jpg}" type="image/jpg">
     <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
     <title th:text="#{cinema.details.title}">Cinema Details</title>
 </head>
@@ -40,6 +41,19 @@
                     <a th:href="@{/movie-details/{id}(id=${movie.id})}" class="stretched-link"></a>
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title fs-5 mb-3" th:text="${movie.title}">Movie Title</h5>
+                        <p th:text="#{more.details}">More Details</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2 th:text="#{cinema.movies.title}" class="fs-3 mb-4">Movies in this cinema</h2>
+        <div class="row">
+            <div th:each="screen : ${cinema.screens}" class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                <div class="card h-100">
+                    <a th:href="@{/movie-details/{id}(id=${screen.id})}" class="stretched-link"></a>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title fs-5 mb-3" th:text="${screen.screenType}">Movie Title</h5>
                         <p th:text="#{more.details}">More Details</p>
                     </div>
                 </div>

@@ -86,26 +86,10 @@ public class MovieController {
         }
     }
 
-    @GetMapping("/movies/delete/{id}")
+    @PostMapping("/movies/delete/{id}")
     public String deleteMovie(@PathVariable Long id) {
         movieService.deleteById(id);
         return "redirect:/movies";
-    }
-
-    @GetMapping("/title")
-    public String findByTitleForm(@RequestParam(required = false) String title, Model model, HttpSession session) {
-        Movie movies = movieService.findByTitle(title);
-            model.addAttribute("movies", movies);
-        sessionHistoryService.addPageVisit(session, "Find Movie by Title Page");
-        return "movies-by-title";
-    }
-
-    @PostMapping("/title")
-    public String findByTitle(@RequestParam String title, Model model, HttpSession session) {
-        Movie movies = movieService.findByTitle(title);
-        model.addAttribute("movies", movies);
-        sessionHistoryService.addPageVisit(session, "Find Movie by Title Page");
-        return "movies-by-title";
     }
 
 

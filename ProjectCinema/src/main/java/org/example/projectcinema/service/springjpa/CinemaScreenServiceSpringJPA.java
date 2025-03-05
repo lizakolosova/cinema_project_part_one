@@ -6,7 +6,6 @@ import org.example.projectcinema.domain.CinemaScreen;
 import org.example.projectcinema.repository.springjpa.CinemaRepositorySpringJPA;
 import org.example.projectcinema.repository.springjpa.CinemaScreenRepositorySpringJPA;
 import org.example.projectcinema.service.CinemaScreenService;
-import org.example.projectcinema.service.jpa.CinemaScreenServiceJPA;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Profile;
@@ -15,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Profile("JPA")
 @Service
 public class CinemaScreenServiceSpringJPA implements CinemaScreenService {
-    private static final Logger logger = LoggerFactory.getLogger(CinemaScreenServiceJPA.class);
+    private static final Logger logger = LoggerFactory.getLogger(CinemaScreenServiceSpringJPA.class);
 
     private final CinemaScreenRepositorySpringJPA cinemaScreenRepository;
     private final CinemaRepositorySpringJPA cinemaRepository;
