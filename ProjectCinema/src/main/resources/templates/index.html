@@ -1,11 +1,25 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
 <head>
     <title th:text="#{project.cinema.title}">Project Cinema</title>
+    <link rel="icon" th:href="@{/icons/icon.jpg}" type="image/jpg">
     <link href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+<!-- Insert your navbar here -->
 <div th:insert="~{fragments :: navbar}"></div>
+
+<!-- Language selection dropdown -->
+<div class="container mt-3 text-end">
+    <form action="/lang" method="get">
+        <select name="lang" onchange="this.form.submit()" class="form-select" style="max-width: 150px;">
+            <option value="en" th:selected="${#locale.language == 'en'}">English</option>
+            <option value="fr" th:selected="${#locale.language == 'fr'}">French</option>
+        </select>
+    </form>
+</div>
+
 <div class="container mt-5">
     <div class="text-center">
         <h1 class="display-4" th:text="#{project.cinema.welcome}">Welcome to Project Cinema</h1>
@@ -25,5 +39,6 @@
 <script src="/webjars/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
 
 

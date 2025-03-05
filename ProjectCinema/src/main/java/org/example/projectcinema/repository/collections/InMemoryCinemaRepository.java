@@ -19,6 +19,8 @@ public class InMemoryCinemaRepository implements CinemaRepository {
 
     private final List<Cinema> cinemas = new ArrayList<>();
 
+    private long currentId = 1;
+
     @Override
     public List<Cinema> findAll() {
         logger.info("Fetching all cinemas. Current number of cinemas: {}", cinemas.size());
@@ -29,10 +31,15 @@ public class InMemoryCinemaRepository implements CinemaRepository {
     public Cinema save(Cinema cinema) {
         logger.info("Attempting to save cinema: {}", cinema != null ? cinema.getName() : "null");
 
-        if (cinema == null || cinema.getName() == null) {
-            logger.error("Cinema or cinema name is null. Cannot save.");
+        if (cinema == null) {
+            logger.error("Cinema is null. Cannot save.");
             throw new IllegalArgumentException("Cinema or cinema name cannot be null");
         }
+
+        if (cinema.getId() == null) {
+            cinema.setId(currentId++);
+        }
+        
         cinemas.add(cinema);
         logger.info("Cinema '{}' has been saved successfully. Total number of cinemas: {}", cinema.getName(), cinemas.size());
         return cinema;

@@ -45,10 +45,10 @@ public class JPARunner implements CommandLineRunner {
     public void seedData() {
         logger.info("Seeding data using JPA...");
 
-        Movie movie1 = new Movie("Avengers: Endgame", LocalDate.of(2019, 4, 26), 8.5, Genre.ACTION, "movie1.jpg");
+        Movie movie1 = new Movie("Monsters, Inc.", LocalDate.of(2001, 11, 2), 8.1, Genre.ANIMATION, "movie1.jpg");
         Movie movie2 = new Movie("Toy Story 4", LocalDate.of(2019, 6, 21), 7.8, Genre.ANIMATION, "movie2.jpg");
         Movie movie3 = new Movie("The Lion King", LocalDate.of(2019, 7, 19), 6.8, Genre.ADVENTURE, "movie3.jpg");
-        Movie movie4 = new Movie("Joker", LocalDate.of(2019, 10, 4), 8.4, Genre.DRAMA, "movie4.jpg");
+        Movie movie4 = new Movie("Wall-E", LocalDate.of(2008, 6, 27), 8.0, Genre.ANIMATION, "movie4.jpg");
 
         Cinema cinema1 = new Cinema("Cinema 1", "127 Kattenstraat", 200, "cinema1.jpg");
         Cinema cinema2 = new Cinema("Cinema 2", "365 Pothoekstraat", 150, "cinema2.jpg");
