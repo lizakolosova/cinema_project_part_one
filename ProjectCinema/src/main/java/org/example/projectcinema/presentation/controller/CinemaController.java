@@ -94,22 +94,10 @@ public class CinemaController {
             return "other-error";
         }
     }
-    @GetMapping("/cinemas/delete/{id}")
+    @PostMapping("/cinemas/delete/{id}")
     public String deleteCinema(@PathVariable Long id) {
         cinemaService.deleteById(id);
         return "redirect:/cinemas";
-    }
-
-    @GetMapping("/name")
-    public String searchByNameForm(@RequestParam(required = false) String name, Model model) {
-            model.addAttribute("cinemas", cinemaService.findByName(name));
-        return "cinemas-by-name";
-    }
-
-    @PostMapping("/name")
-    public String searchByName(@RequestParam("name") String name, Model model) {
-        model.addAttribute("cinemas", cinemaService.findByName(name));
-        return "cinemas-by-name";
     }
 
     @GetMapping("/address")

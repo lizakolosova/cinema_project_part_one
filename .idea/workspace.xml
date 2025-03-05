@@ -4,37 +4,43 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3b8ded2d-bd6f-4879-af4d-f297219e55e7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/JPARunner.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/service/ImplJPA1/MovieServiceJPA.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/other-error.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+    <list default="true" id="3b8ded2d-bd6f-4879-af4d-f297219e55e7" name="Changes" comment="final">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/8dd49438-5844-4d71-b25a-0961a847d846.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/8dd49438-5844-4d71-b25a-0961a847d846.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/8dd49438-5844-4d71-b25a-0961a847d846/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/8dd49438-5844-4d71-b25a-0961a847d846/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/CinemaApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/CinemaApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/domain/Cinema.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/domain/Cinema.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/domain/CinemaScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/domain/CinemaScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/DataFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/DataFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/JPARunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/JPARunner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/config/WebConfig.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/domain/Movie.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/domain/Movie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/exceptions/DatabaseException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/exceptions/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/exceptions/GlobalExceptionHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/presentation/controller/CinemaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/presentation/controller/CinemaController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/presentation/controller/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/exceptions/GlobalExceptionHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/presentation/controller/MovieController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/presentation/controller/MovieController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/presentation/controller/SessionHistoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/presentation/controller/SessionHistoryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/presentation/viewmodels/MovieViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/presentation/viewmodels/MovieViewModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/repository/CinemaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/repository/CinemaRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/repository/JdbcCinemaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/repository/JDBC/JdbcCinemaRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/repository/JdbcMovieRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/repository/JDBC/JdbcMovieRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/repository/MovieRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/repository/MovieRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/service/CinemaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/service/CinemaService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/service/CinemaServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/service/Impl/CinemaServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/service/MovieService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/service/MovieService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/service/MovieServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/service/Impl/MovieServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/service/SessionHistoryServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/service/Impl/SessionHistoryServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/repository/collections/InMemoryCinemaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/repository/collections/InMemoryCinemaRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/repository/collections/InMemoryMovieRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/repository/collections/InMemoryMovieRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/repository/springjpa/CinemaRepositorySpringJPA.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/repository/springjpa/CinemaRepositorySpringJPA.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/service/springjpa/CinemaScreenServiceSpringJPA.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/service/springjpa/CinemaScreenServiceSpringJPA.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/service/springjpa/CinemaServiceSpringJPA.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/service/springjpa/CinemaServiceSpringJPA.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/resources/static/images/movie1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/resources/static/images/movie2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/resources/static/images/movie3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/resources/static/images/movie4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/addcinema.html" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/addcinema.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/addmovie.html" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/addmovie.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/cinema-details.html" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/cinema-details.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/cinemas-by-address.html" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/cinemas-by-address.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/cinemas-by-name.html" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/cinemas-by-name.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/cinemas.html" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/cinemas.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/error-page.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/database-error.html" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/database-error.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/fragments.html" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/fragments.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/movie-details.html" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/movie-details.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/movies-by-date.html" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/movies-by-date.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/movies-by-title.html" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/movies-by-title.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/movies.html" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/movies.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/test/java/org/example/projectcinema/CinemaApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/test/java/org/example/projectcinema/CinemaApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/other-error.html" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/other-error.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/session-history.html" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/session-history.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,6 +89,7 @@
         <option value="Interface" />
         <option value="HTML File" />
         <option value="Class" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -161,6 +168,7 @@
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/lzkol/Downloads/programming-3/programming-3&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -169,7 +177,7 @@
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;Debugger_Data_Views_Java&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;File.Encoding&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -187,6 +195,8 @@
       <recent name="C:\Users\lzkol\programming-3\ProjectCinema\src\main\resources" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\lzkol\programming-3\ProjectCinema\src\main\resources\static\images" />
+      <recent name="C:\Users\lzkol\programming-3\ProjectCinema\src\main\resources\static\icons" />
       <recent name="C:\Users\lzkol\programming-3\ProjectCinema\src\main\java\org\example\projectcinema\config" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -285,19 +295,57 @@
       <workItem from="1735216220450" duration="7000" />
       <workItem from="1735237011541" duration="59198000" />
       <workItem from="1735817173471" duration="38095000" />
-      <workItem from="1736031133938" duration="4997000" />
+      <workItem from="1736031133938" duration="34406000" />
+      <workItem from="1736118314934" duration="392000" />
+      <workItem from="1736348424303" duration="2799000" />
+      <workItem from="1737293087714" duration="4722000" />
+      <workItem from="1737404193907" duration="19074000" />
+      <workItem from="1737494264346" duration="715000" />
+      <workItem from="1737495832928" duration="558000" />
+      <workItem from="1737496893294" duration="1668000" />
+      <workItem from="1737498726038" duration="397000" />
+      <workItem from="1737535068700" duration="556000" />
+      <workItem from="1737665505342" duration="810000" />
+      <workItem from="1737712975713" duration="3601000" />
+      <workItem from="1737728801989" duration="59000" />
+      <workItem from="1737809301951" duration="23000" />
+      <workItem from="1737974370836" duration="470000" />
+      <workItem from="1739197521266" duration="616000" />
+      <workItem from="1739478333358" duration="323000" />
+      <workItem from="1739478918671" duration="1015000" />
+      <workItem from="1739480087093" duration="2281000" />
+      <workItem from="1739484190850" duration="1601000" />
+      <workItem from="1739613230895" duration="21000" />
+      <workItem from="1739784452807" duration="15000" />
+      <workItem from="1739784475890" duration="71000" />
+      <workItem from="1739873198921" duration="1231000" />
+      <workItem from="1740137041076" duration="36000" />
+      <workItem from="1740305726446" duration="25000" />
     </task>
+    <task id="LOCAL-00001" summary="final">
+      <option name="closed" value="true" />
+      <created>1736116002758</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1736116002758</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="final" />
+    <option name="LAST_COMMIT_MESSAGE" value="final" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-field">
           <url>file://$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/domain/Movie.java</url>
-          <line>30</line>
+          <line>26</line>
           <properties field="genre" class="org.example.projectcinema.domain.Movie" />
           <option name="timeStamp" value="1" />
         </line-breakpoint>

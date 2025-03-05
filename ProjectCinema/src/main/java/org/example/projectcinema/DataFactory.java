@@ -34,10 +34,10 @@ public class DataFactory implements CommandLineRunner {
     }
 
     public void seedData() {
-        Cinema cinema1 = new Cinema(1L,"Cinema 1", "127 Kattenstraat", 200, "cinema1.jpg");
-        Cinema cinema2 = new Cinema(2L,"Cinema 2", "365 Pothoekstraat", 150, "cinema2.jpg");
-        Cinema cinema3 = new Cinema(3L,"Cinema 3", "398 Predikerinnenstraat", 300, "cinema3.jpg");
-        Cinema cinema4 = new Cinema(4L,"Cinema 4", "741 Bredabaan", 220, "cinema4.jpg");
+        Cinema cinema1 = new Cinema("Cinema 1", "127 Kattenstraat", 200, "cinema1.jpg");
+        Cinema cinema2 = new Cinema("Cinema 2", "365 Pothoekstraat", 150, "cinema2.jpg");
+        Cinema cinema3 = new Cinema("Cinema 3", "398 Predikerinnenstraat", 300, "cinema3.jpg");
+        Cinema cinema4 = new Cinema("Cinema 4", "741 Bredabaan", 220, "cinema4.jpg");
 
         cinemaRepository.save(cinema1);
         cinemaRepository.save(cinema2);
@@ -49,10 +49,10 @@ public class DataFactory implements CommandLineRunner {
         CinemaScreen screen3 = new CinemaScreen(3, cinema3, "Regular", 75);
         CinemaScreen screen4 = new CinemaScreen(2,cinema4, "Small", 50);
 
-        Movie movie1 = new Movie(1L,"Avengers: Endgame", LocalDate.of(2019, 4, 26), 8.5, Genre.ACTION, "movie1.jpg");
-        Movie movie2 = new Movie(2L,"Toy Story 4", LocalDate.of(2019, 6, 21), 7.8, Genre.ANIMATION, "movie2.jpg");
-        Movie movie3 = new Movie(3L,"The Lion King", LocalDate.of(2019, 7, 19), 6.8, Genre.ADVENTURE, "movie3.jpg");
-        Movie movie4 = new Movie(4L,"Joker", LocalDate.of(2019, 10, 4), 8.4, Genre.DRAMA, "movie4.jpg");
+        Movie movie1 = new Movie("Monsters, Inc.", LocalDate.of(2001, 11, 2), 8.1, Genre.ANIMATION, "movie1.jpg");
+        Movie movie2 = new Movie("Toy Story 4", LocalDate.of(2019, 6, 21), 7.8, Genre.ANIMATION, "movie2.jpg");
+        Movie movie3 = new Movie("The Lion King", LocalDate.of(2019, 7, 19), 6.8, Genre.ADVENTURE, "movie3.jpg");
+        Movie movie4 = new Movie("Wall-E", LocalDate.of(2008, 6, 27), 8.0, Genre.ANIMATION, "movie4.jpg");
 
         movieRepository.save(movie1);
         movieRepository.save(movie2);

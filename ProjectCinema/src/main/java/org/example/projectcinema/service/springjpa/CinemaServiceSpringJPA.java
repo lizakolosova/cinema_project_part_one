@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -91,11 +92,11 @@ public class CinemaServiceSpringJPA implements CinemaService {
 
     @Override
     public Cinema findByIdWithMovies(Long id) {
-        Cinema cinema = cinemaRepository.findByIdWithMovies(id);
-        if (cinema == null) {
-            throw new CinemaNotFoundException("Cinema not found. Id:" + id, 404, "Not found");
-        }
-            return cinema;
+        Optional<Cinema> cinemaOptional = cinemaRepository.findById(id);
+        if (cinemaOptional.isPresent()) {
+            return cinemaOptional.get();
+    } else {
+            throw new CinemaNotFoundException("Cinema not found. Id:" + id, 404, "Not found");}
     }
 
     public List<CinemaDTO> getAllCinemasForJson() {
