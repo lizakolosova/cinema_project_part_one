@@ -4,44 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3b8ded2d-bd6f-4879-af4d-f297219e55e7" name="Changes" comment="final">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/8dd49438-5844-4d71-b25a-0961a847d846.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/8dd49438-5844-4d71-b25a-0961a847d846.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/8dd49438-5844-4d71-b25a-0961a847d846/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/8dd49438-5844-4d71-b25a-0961a847d846/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/DataFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/DataFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/JPARunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/JPARunner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/config/WebConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/domain/Movie.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/domain/Movie.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/exceptions/DatabaseException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/exceptions/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/exceptions/GlobalExceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/presentation/controller/CinemaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/presentation/controller/CinemaController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/presentation/controller/MovieController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/presentation/controller/MovieController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/repository/collections/InMemoryCinemaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/repository/collections/InMemoryCinemaRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/repository/collections/InMemoryMovieRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/repository/collections/InMemoryMovieRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/repository/springjpa/CinemaRepositorySpringJPA.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/repository/springjpa/CinemaRepositorySpringJPA.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/service/springjpa/CinemaScreenServiceSpringJPA.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/service/springjpa/CinemaScreenServiceSpringJPA.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/service/springjpa/CinemaServiceSpringJPA.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/java/org/example/projectcinema/service/springjpa/CinemaServiceSpringJPA.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/resources/static/images/movie1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/resources/static/images/movie2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/resources/static/images/movie3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/resources/static/images/movie4.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/addcinema.html" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/addcinema.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/addmovie.html" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/addmovie.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/cinema-details.html" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/cinema-details.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/cinemas-by-address.html" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/cinemas-by-address.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/cinemas-by-name.html" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/cinemas-by-name.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/cinemas.html" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/cinemas.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/database-error.html" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/database-error.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/fragments.html" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/fragments.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/movie-details.html" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/movie-details.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/movies-by-date.html" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/movies-by-date.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/movies-by-title.html" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/movies-by-title.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/movies.html" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/movies.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/other-error.html" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/other-error.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/session-history.html" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCinema/src/main/resources/templates/session-history.html" afterDir="false" />
-    </list>
+    <list default="true" id="3b8ded2d-bd6f-4879-af4d-f297219e55e7" name="Changes" comment="trying to to do merge request" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -94,6 +57,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitLabMergeRequestFiltersHistory">{
@@ -165,7 +133,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;Spring Boot.CinemaApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;task-example&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/lzkol/Downloads/programming-3/programming-3&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
