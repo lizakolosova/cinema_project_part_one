@@ -14,7 +14,12 @@ java {
 }
 
 repositories {
-    mavenCentral()
+    mavenCentral {
+        metadataSources {
+            mavenPom()
+            artifact()
+        }
+    }
 }
 
 dependencies {
