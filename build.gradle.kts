@@ -45,7 +45,7 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok:1.18.30")
     implementation("com.google.code.gson:gson:2.10.1")
     implementation ("org.springframework.boot:spring-boot-starter-actuator")
-
+    testImplementation("org.springframework.boot:spring-boot-starter-test:3.3.4")
 }
 
 tasks.withType<Test> {
