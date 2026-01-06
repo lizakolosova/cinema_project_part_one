@@ -58,10 +58,6 @@ public class CinemaServiceImpl implements CinemaService {
     public CinemaDTO save(Cinema cinema) {
         logger.debug("Saving cinema: {}", cinema.getName());
 
-        if (cinema == null) {
-            throw new IllegalArgumentException("Cinema cannot be null");
-        }
-
         Cinema saved = cinemaRepository.save(cinema);
         logger.info("Cinema '{}' saved with id: {}", saved.getName(), saved.getId());
 

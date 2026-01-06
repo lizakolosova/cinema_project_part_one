@@ -57,10 +57,6 @@ public class MovieServiceImpl implements MovieService {
     public MovieDTO save(Movie movie) {
         logger.debug("Saving movie: {}", movie.getTitle());
 
-        if (movie == null) {
-            throw new IllegalArgumentException("Movie cannot be null");
-        }
-
         Movie saved = movieRepository.save(movie);
         logger.info("Movie '{}' saved with id: {}", saved.getTitle(), saved.getId());
 
