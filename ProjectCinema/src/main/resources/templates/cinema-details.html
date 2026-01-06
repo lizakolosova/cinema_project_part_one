@@ -3,69 +3,114 @@
 <meta charset="UTF-8">
 <head>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.0/css/bootstrap.min.css}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
     <link rel="icon" th:href="@{/icons/icon.jpg}" type="image/jpg">
-    <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
     <title th:text="#{cinema.details.title}">Cinema Details</title>
 </head>
-<body class="pb-4">
+<body class="d-flex flex-column min-vh-100">
 <div th:insert="~{fragments :: navbar}"></div>
 
-<div class="container pb-5">
-    <div th:if="${cinema != null}" class="mb-3">
-        <h1 th:text="${cinema.name}" class="display-4 text-center mb-4">Cinema Name</h1>
+<div class="container details-container pb-5 mb-5">
+    <div th:if="${cinema != null}">
+        <div class="details-header">
+            <h1 class="display-4" th:text="${cinema.name}">Cinema Name</h1>
+        </div>
 
-        <div class="card mb-4 shadow-sm">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <img th:src="@{/images/{image}(image=${cinema.image})}"
-                             alt="Image of [[${cinema.name}]]"
-                             class="card-img-top rounded-3"
-                             style="object-fit: cover; height: 350px;" />
-                    </div>
-                    <div class="col-md-6">
-                        <h5 th:text="#{card.capacity}" class="card-title fs-4">Capacity</h5>
-                        <p th:text="${cinema.capacity}" class="card-text fs-5">Capacity: 1000</p>
+        <div class="card details-card shadow-sm border-0">
+            <div class="row g-0">
+                <div class="col-md-5">
+                    <img th:src="@{/images/{image}(image=${cinema.image})}"
+                         th:alt="'Image of ' + ${cinema.name}"
+                         class="img-fluid w-100 h-100"
+                         style="object-fit: cover; max-height: 400px;" />
+                </div>
+                <div class="col-md-7">
+                    <div class="card-body p-4">
+                        <div class="mb-4">
+                            <h5 class="info-label">
+                                <i class="bi bi-people-fill text-primary"></i> Capacity
+                            </h5>
+                            <p class="info-value" th:text="${cinema.capacity} + ' people'">1000 people</p>
+                        </div>
 
-                        <h5 th:text="#{card.address}" class="card-title fs-4">Address</h5>
-                        <p th:text="${cinema.address}" class="card-text fs-5">123 Street Name, City</p>
+                        <div class="mb-4">
+                            <h5 class="info-label">
+                                <i class="bi bi-geo-alt-fill text-danger"></i> Address
+                            </h5>
+                            <p class="info-value" th:text="${cinema.address}">123 Street Name, City</p>
+                        </div>
+
+                        <div>
+                            <a th:href="@{/cinemas}" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-left"></i> Back to Cinemas
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <h2 th:text="#{cinema.movies.title}" class="fs-3 mb-4">Movies in this cinema</h2>
-        <div class="row">
-            <div th:each="movie : ${cinema.movies}" class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                <div class="card h-100">
-                    <a th:href="@{/movie-details/{id}(id=${movie.id})}" class="stretched-link"></a>
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title fs-5 mb-3" th:text="${movie.title}">Movie Title</h5>
-                        <p th:text="#{more.details}">More Details</p>
+        <hr class="section-divider">
+
+        <div class="relationship-section">
+            <h2 class="section-title">
+                <i class="bi bi-film"></i> <span th:text="#{cinema.movies.title}">Movies Showing</span>
+            </h2>
+
+            <div th:if="${cinema.movies != null && !cinema.movies.isEmpty()}" class="row g-4">
+                <div th:each="movie : ${cinema.movies}" class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title text-truncate" th:text="${movie.title}">Movie Title</h5>
+                            <p class="card-text text-muted small">
+                                <i class="bi bi-calendar3"></i> <span th:text="${movie.releaseDate}">2024-01-01</span>
+                            </p>
+                            <a th:href="@{/movie-details/{id}(id=${movie.id})}" class="btn btn-sm btn-primary">
+                                <i class="bi bi-info-circle"></i> Details
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <h2 th:text="#{cinema.movies.title}" class="fs-3 mb-4">Movies in this cinema</h2>
-        <div class="row">
-            <div th:each="screen : ${cinema.screens}" class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                <div class="card h-100">
-                    <a th:href="@{/movie-details/{id}(id=${screen.id})}" class="stretched-link"></a>
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title fs-5 mb-3" th:text="${screen.screenType}">Movie Title</h5>
-                        <p th:text="#{more.details}">More Details</p>
-                    </div>
-                </div>
+            <div th:if="${cinema.movies == null || cinema.movies.isEmpty()}" class="empty-state">
+                <i class="bi bi-film display-1"></i>
+                <p class="mt-3" th:text="#{cinema.no.movies}">No movies currently showing at this cinema.</p>
             </div>
         </div>
 
-        <div th:if="${cinema.movies == null || #lists.isEmpty(cinema.movies)}" class="alert alert-info">
-            <p th:text="#{cinema.no.movies}">No movies available for this cinema.</p>
+        <hr class="section-divider">
+
+        <div class="relationship-section">
+            <h2 class="section-title">
+                <i class="bi bi-tv"></i> Cinema Screens
+            </h2>
+
+            <div th:if="${cinema.screens != null && !cinema.screens.isEmpty()}" class="row g-4">
+                <div th:each="screen : ${cinema.screens}" class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <i class="bi bi-tv-fill text-info"></i> Screen <span th:text="${screen.screenNumber}">1</span>
+                            </h5>
+                            <p class="card-text">
+                                <strong>Type:</strong> <span th:text="${screen.screenType}">IMAX</span><br/>
+                                <strong>Size:</strong> <span th:text="${screen.size} + ' seats'">100 seats</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div th:if="${cinema.screens == null || cinema.screens.isEmpty()}" class="empty-state">
+                <i class="bi bi-tv display-1"></i>
+                <p class="mt-3">No screens available for this cinema.</p>
+            </div>
         </div>
     </div>
 </div>
+
 <div th:insert="~{fragments :: footer}"></div>
 </body>
 </html>
-

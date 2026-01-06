@@ -2,32 +2,27 @@ package org.example.projectcinema.repository.jpa;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.transaction.Transactional;
 import org.example.projectcinema.domain.CinemaScreen;
+import org.example.projectcinema.repository.CinemaScreenRepository;
 import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-@Service
-@Profile({"prod","dev"})
-@Transactional
-public class CinemaScreenJPARepository {
+@Repository
+@Profile({"prod", "dev"})
+@Transactional(readOnly = true)
+public class CinemaScreenJPARepository implements CinemaScreenRepository {
 
     @PersistenceContext
     private EntityManager entityManager;
 
+    @Transactional
     public CinemaScreen save(CinemaScreen cinemaScreen) {
-            entityManager.merge(cinemaScreen);
-        return cinemaScreen;
-    }
-
-    public CinemaScreen findExistingCinemaScreen(CinemaScreen cinemaScreen) {
-        return entityManager.createQuery(
-                        "SELECT cs FROM CinemaScreen cs WHERE cs.cinema.id = :cinemaId AND cs.screenNumber = :screenNumber",
-                        CinemaScreen.class)
-                .setParameter("cinemaId", cinemaScreen.getCinema().getId())
-                .setParameter("screenNumber", cinemaScreen.getScreenNumber())
-                .getResultStream()
-                .findFirst()
-                .orElse(null);
+        if (cinemaScreen.getId() == null) {
+            entityManager.persist(cinemaScreen);
+            return cinemaScreen;
+        } else {
+            return entityManager.merge(cinemaScreen);
+        }
     }
 }

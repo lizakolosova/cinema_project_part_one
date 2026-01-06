@@ -3,43 +3,52 @@
 <meta charset="UTF-8">
 <head>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.0/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
 </head>
 <body>
 
 <th:block th:fragment="navbar">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
         <div class="container-fluid">
-            <a class="navbar-brand" th:href="@{/home}">My Cinema App
-                <img th:src="@{/icons/camera-reels-fill.svg}" class="icon-class" alt="App Icon"></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand" th:href="@{/home}">
+                🎬 Cinema App
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/cinemas}">All Cinemas</a>
+                        <a class="nav-link" th:href="@{/cinemas}">
+                            <i class="bi bi-building"></i> Cinemas
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/movies}">All Movies</a>
+                        <a class="nav-link" th:href="@{/movies}">
+                            <i class="bi bi-film"></i> Movies
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/addcinema}">Add Cinema</a>
+                        <a class="nav-link" th:href="@{/addcinema}">
+                            <i class="bi bi-plus-circle"></i> Add Cinema
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/addmovie}">Add Movie</a>
+                        <a class="nav-link" th:href="@{/addmovie}">
+                            <i class="bi bi-plus-circle"></i> Add Movie
+                        </a>
                     </li>
-<!--                    <li class="nav-item">-->
-<!--                        <a class="nav-link" th:href="@{/name}">Find by Cinema Name</a>-->
-<!--                    </li>-->
-<!--                    <li class="nav-item">-->
-<!--                        <a class="nav-link" th:href="@{/address}">Find by Address</a>-->
-<!--                    </li>-->
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/releaseDate}">Find by Date</a>
+                        <a class="nav-link" th:href="@{/releaseDate}">
+                            <i class="bi bi-calendar"></i> Filter by Date
+                        </a>
                     </li>
-<!--                    <li class="nav-item">-->
-<!--                        <a class="nav-link" th:href="@{/title}">Find by Title</a>-->
-<!--                    </li>-->
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/session-history}">
+                            <i class="bi bi-clock-history"></i> History
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -48,11 +57,13 @@
 </th:block>
 
 <th:block th:fragment="footer">
-    <footer class="bg-light text-center fixed-bottom">
-        <div class="container d-flex justify-content-center align-items-center" style="height: 60px;">
-            <p class="mb-0">&copy; 2024 My Cinema App. All rights reserved.</p>
+    <footer class="bg-light text-center text-muted fixed-bottom">
+        <div class="container d-flex justify-content-between align-items-center" style="height: 60px;">
+            <span class="text-muted">&copy; 2024 Cinema App</span>
+            <span class="text-muted">Built with ❤️ and Spring Boot</span>
         </div>
     </footer>
 </th:block>
+
 </body>
 </html>

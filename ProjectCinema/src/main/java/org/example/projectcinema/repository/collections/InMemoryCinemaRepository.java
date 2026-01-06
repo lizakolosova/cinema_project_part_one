@@ -9,6 +9,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
 @Repository
@@ -17,9 +20,8 @@ public class InMemoryCinemaRepository implements CinemaRepository {
 
     private static final Logger logger = LoggerFactory.getLogger(InMemoryCinemaRepository.class);
 
-    private final List<Cinema> cinemas = new ArrayList<>();
-
-    private long currentId = 1;
+    private final List<Cinema> cinemas = new CopyOnWriteArrayList<>();
+    private final AtomicLong currentId = new AtomicLong(1);
 
     @Override
     public List<Cinema> findAll() {
@@ -29,24 +31,29 @@ public class InMemoryCinemaRepository implements CinemaRepository {
 
     @Override
     public Cinema save(Cinema cinema) {
-        logger.info("Attempting to save cinema: {}", cinema != null ? cinema.getName() : "null");
+        logger.info("Saving cinema: {}", cinema != null ? cinema.getName() : "null");
 
         if (cinema == null) {
             logger.error("Cinema is null. Cannot save.");
-            throw new IllegalArgumentException("Cinema or cinema name cannot be null");
+            throw new IllegalArgumentException("Cinema cannot be null");
         }
 
         if (cinema.getId() == null) {
-            cinema.setId(currentId++);
+            cinema.setId(currentId.getAndIncrement());
+            cinemas.add(cinema);
+            logger.info("Cinema '{}' created. Total: {}", cinema.getName(), cinemas.size());
+        } else {
+            cinemas.removeIf(c -> Objects.equals(c.getId(), cinema.getId()));
+            cinemas.add(cinema);
+            logger.info("Cinema '{}' updated. Total: {}", cinema.getName(), cinemas.size());
         }
-        
-        cinemas.add(cinema);
-        logger.info("Cinema '{}' has been saved successfully. Total number of cinemas: {}", cinema.getName(), cinemas.size());
+
         return cinema;
     }
+
     @Override
     public void deleteById(Long id) {
-        boolean removed = cinemas.removeIf(cinema -> cinema.getId() == id);
+        boolean removed = cinemas.removeIf(cinema -> Objects.equals(cinema.getId(), id));
         if (removed) {
             logger.info("Cinema with ID {} removed successfully.", id);
         } else {
@@ -57,7 +64,7 @@ public class InMemoryCinemaRepository implements CinemaRepository {
     public Cinema findByIdWithMovies(Long id) {
         logger.debug("Fetching cinema with ID {} with movies.", id);
         return cinemas.stream()
-                .filter(cinema -> cinema.getId() == id)
+                .filter(cinema -> Objects.equals(cinema.getId(), id))
                 .findFirst()
                 .orElse(null);
     }

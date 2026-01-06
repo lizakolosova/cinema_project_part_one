@@ -26,149 +26,172 @@ public class JdbcMovieRepository implements MovieRepository {
 
     private final JdbcTemplate jdbcTemplate;
     private final SimpleJdbcInsert movieInserter;
-
     private static final Logger logger = LoggerFactory.getLogger(JdbcMovieRepository.class);
 
     public JdbcMovieRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
         this.movieInserter = new SimpleJdbcInsert(jdbcTemplate)
-                .withTableName("movie")
-                .usingGeneratedKeyColumns("movie_id");
+                .withTableName("MOVIE")
+                .usingGeneratedKeyColumns("MOVIE_ID");
     }
 
     private final RowMapper<Movie> movieRowMapper = (rs, rowNum) -> new Movie(
-            rs.getLong("movie_id"),
-            rs.getString("title"),
-            rs.getDate("release_date").toLocalDate(),
-            rs.getDouble("rating"),
-            Genre.valueOf(rs.getString("genre")),
-            rs.getString("image")
+            rs.getLong("MOVIE_ID"),
+            rs.getString("TITLE"),
+            rs.getDate("RELEASE_DATE").toLocalDate(),
+            rs.getDouble("RATING"),
+            Genre.valueOf(rs.getString("GENRE")),
+            rs.getString("IMAGE")
     );
 
     @Override
     public List<Movie> findAll() {
-        logger.info("Fetching all movies from the database.");
-        List<Movie> movies = jdbcTemplate.query("SELECT * FROM movie", movieRowMapper);
-        logger.info("Fetched {} movies.", movies.size());
+        logger.debug("Fetching all movies from the database");
+        List<Movie> movies = jdbcTemplate.query("SELECT * FROM MOVIE", movieRowMapper);
+        logger.debug("Fetched {} movies", movies.size());
         return movies;
     }
 
     @Override
+    @Transactional
     public Movie save(Movie movie) {
-        logger.info("Attempting to save movie with title '{}'.", movie.getTitle());
+        logger.debug("Attempting to save movie: {}", movie.getTitle());
 
-        String checkSql = "SELECT COUNT(*) FROM movie WHERE title = ?";
-        int count = jdbcTemplate.queryForObject(checkSql, Integer.class, movie.getTitle());
+        if (movie.getId() != null) {
+            String updateSql = """
+                UPDATE MOVIE 
+                SET TITLE = ?, RELEASE_DATE = ?, RATING = ?, GENRE = ?, IMAGE = ? 
+                WHERE MOVIE_ID = ?
+                """;
 
-        if (count > 0) {
-            logger.info("Movie with title '{}' already exists, skipping insert.", movie.getTitle());
-            return movie;
+            int updated = jdbcTemplate.update(
+                    updateSql,
+                    movie.getTitle(),
+                    movie.getReleaseDate(),
+                    movie.getRating(),
+                    movie.getGenre().name(),
+                    movie.getImage(),
+                    movie.getId()
+            );
+
+            if (updated > 0) {
+                logger.info("Movie '{}' updated successfully", movie.getTitle());
+                return movie;
+            }
         }
 
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("title", movie.getTitle());
-        parameters.put("release_date", movie.getReleaseDate());
-        parameters.put("rating", movie.getRating());
-        parameters.put("genre", movie.getGenre());
-        parameters.put("image", movie.getImage());
+        parameters.put("TITLE", movie.getTitle());
+        parameters.put("RELEASE_DATE", movie.getReleaseDate());
+        parameters.put("RATING", movie.getRating());
+        parameters.put("GENRE", movie.getGenre().name());
+        parameters.put("IMAGE", movie.getImage());
 
         Long generatedId = movieInserter.executeAndReturnKey(parameters).longValue();
         movie.setId(generatedId);
-        logger.info("Movie with title '{}' saved with ID {}.", movie.getTitle(), generatedId);
+        logger.info("Movie '{}' saved with ID {}", movie.getTitle(), generatedId);
+
         return movie;
     }
 
     @Override
     @Transactional
     public void deleteById(Long id) {
-        logger.info("Attempting to delete movie with ID {}.", id);
-        jdbcTemplate.update("DELETE FROM cinema_screen_movie WHERE screen_id IN (SELECT screen_id FROM cinema_screen WHERE movie_id_fk=?)", id);
-        jdbcTemplate.update("DELETE FROM cinema_screen_movie WHERE movie_id = ?", id);
-        jdbcTemplate.update("DELETE FROM cinema_screen WHERE movie_id_fk = ?", id);
-        jdbcTemplate.update("DELETE FROM cinema_movie WHERE movie_id = ?", id);
-        jdbcTemplate.update("DELETE FROM movie WHERE movie_id = ?", id);
-        logger.info("Movie with ID {} and related data deleted.", id);
+        logger.debug("Deleting movie with ID: {}", id);
+
+        jdbcTemplate.update("DELETE FROM CINEMA_SCREEN_MOVIE WHERE MOVIE_ID = ?", id);
+        jdbcTemplate.update("DELETE FROM CINEMA_MOVIE WHERE MOVIE_ID = ?", id);
+        jdbcTemplate.update("DELETE FROM MOVIE WHERE MOVIE_ID = ?", id);
+
+        logger.info("Movie with ID {} deleted successfully", id);
     }
 
-    @Transactional
     @Override
-    public Movie findByIdWithCinemas(Long Id) {
-        logger.info("Fetching movie with ID {} and associated cinemas.", Id);
+    @Transactional
+    public Movie findByIdWithCinemas(Long id) {
+        logger.debug("Fetching movie with ID {} and associated cinemas", id);
 
         String sql = """
-        SELECT m.*, c.cinema_id, c.name, c.address, c.capacity, c.image
-        FROM movie m
-        LEFT JOIN cinema_movie cm ON cm.movie_id = m.movie_id
-        LEFT JOIN cinema c ON c.cinema_id = cm.cinema_id
-        WHERE m.movie_id = ?
-        """;
+            SELECT m.MOVIE_ID, m.TITLE, m.RELEASE_DATE, m.RATING, m.GENRE, m.IMAGE,
+                   c.CINEMA_ID, c.NAME, c.ADDRESS, c.CAPACITY, c.IMAGE as CINEMA_IMAGE
+            FROM MOVIE m
+            LEFT JOIN CINEMA_MOVIE cm ON m.MOVIE_ID = cm.MOVIE_ID
+            LEFT JOIN CINEMA c ON c.CINEMA_ID = cm.CINEMA_ID
+            WHERE m.MOVIE_ID = ?
+            """;
 
         Movie movie = jdbcTemplate.query(sql, rs -> {
-            Movie resultMovie = null;
+            Movie result = null;
 
             while (rs.next()) {
-                if (resultMovie == null) {
-                    resultMovie = new Movie(
-                            rs.getLong("movie_id"),
-                            rs.getString("title"),
-                            rs.getDate("release_date").toLocalDate(),
-                            rs.getDouble("rating"),
-                            Genre.valueOf(rs.getString("genre")),
-                            rs.getString("image")
+                if (result == null) {
+                    result = new Movie(
+                            rs.getLong("MOVIE_ID"),
+                            rs.getString("TITLE"),
+                            rs.getDate("RELEASE_DATE").toLocalDate(),
+                            rs.getDouble("RATING"),
+                            Genre.valueOf(rs.getString("GENRE")),
+                            rs.getString("IMAGE")
                     );
-                    resultMovie.setCinemas(new ArrayList<>());
+                    result.setCinemas(new ArrayList<>());
                 }
-                int cinemaId = rs.getInt("cinema_id");
+
+                long cinemaId = rs.getLong("CINEMA_ID");
                 if (!rs.wasNull()) {
                     Cinema cinema = new Cinema(
-                            rs.getLong("cinema_id"),
-                            rs.getString("name"),
-                            rs.getString("address"),
-                            rs.getInt("capacity"),
-                            rs.getString("image")
+                            cinemaId,
+                            rs.getString("NAME"),
+                            rs.getString("ADDRESS"),
+                            rs.getInt("CAPACITY"),
+                            rs.getString("CINEMA_IMAGE")
                     );
-                    resultMovie.getCinemas().add(cinema);
+                    result.getCinemas().add(cinema);
                 }
             }
 
-            return resultMovie;
-        }, Id);
+            if (result != null) {
+                logger.info("Fetched movie '{}' with {} cinemas",
+                        result.getTitle(), result.getCinemas().size());
+            } else {
+                logger.warn("No movie found with ID {}", id);
+            }
 
-        if (movie != null) {
-            logger.info("Fetched movie with ID {} and {} associated cinemas.", Id, movie.getCinemas().size());
-        } else {
-            logger.warn("No movie found with ID {}.", Id);
-        }
+            return result;
+        }, id);
 
         return movie;
     }
 
     @Override
     public Movie findByTitle(String title) {
-        logger.info("Fetching movie with title '{}'.", title);
+        logger.debug("Fetching movie with title: {}", title);
 
-        String sql = "SELECT * FROM movie WHERE title = ?";
         try {
-            Movie movie = jdbcTemplate.queryForObject(sql, movieRowMapper, title);
-            logger.info("Found movie with title '{}'.", title);
+            Movie movie = jdbcTemplate.queryForObject(
+                    "SELECT * FROM MOVIE WHERE TITLE = ?",
+                    movieRowMapper,
+                    title
+            );
+            logger.info("Found movie with title: {}", title);
             return movie;
+
         } catch (EmptyResultDataAccessException e) {
-            logger.warn("No movie found with title '{}'.", title);
+            logger.warn("No movie found with title: {}", title);
             return null;
         }
     }
 
     @Override
     public List<Movie> findByReleaseDateAfter(LocalDate releaseDate) {
-        logger.info("Fetching movies released after '{}'.", releaseDate);
+        logger.debug("Fetching movies released after: {}", releaseDate);
 
-        String sql = "SELECT * FROM movie WHERE release_date > ?";
-        List<Movie> movies = jdbcTemplate.query(sql, movieRowMapper, releaseDate);
+        List<Movie> movies = jdbcTemplate.query(
+                "SELECT * FROM MOVIE WHERE RELEASE_DATE > ?",
+                movieRowMapper,
+                releaseDate
+        );
 
-        logger.info("Found {} movies released after '{}'.", movies.size(), releaseDate);
+        logger.debug("Found {} movies released after {}", movies.size(), releaseDate);
         return movies;
     }
 }
-
-
-

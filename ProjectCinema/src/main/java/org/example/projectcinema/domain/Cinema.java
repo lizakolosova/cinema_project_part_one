@@ -23,17 +23,20 @@ public class Cinema {
     @Column(nullable = false)
     private String address;
 
-
     @Positive(message = "Capacity must be a positive number.")
     private int capacity;
-
 
     @OneToMany(mappedBy = "cinema", orphanRemoval = true)
     private List<CinemaScreen> screens;
 
     private String image;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany
+    @JoinTable(
+            name = "cinema_movies",
+            joinColumns = @JoinColumn(name = "cinema_id"),
+            inverseJoinColumns = @JoinColumn(name = "movie_id")
+    )
     private List<Movie> movies = new ArrayList<>();
 
     public Cinema(Long id, String name, String address, int capacity, String image) {
@@ -54,19 +57,42 @@ public class Cinema {
         this.movies = new ArrayList<>();
     }
 
-
-    public void addScreens(CinemaScreen screen) {
-        this.screens.add(screen);
-    }
-
     public void addMovie(Movie movie) {
         if (!this.movies.contains(movie)) {
             this.movies.add(movie);
         }
+        if (!movie.getCinemas().contains(this)) {
+            movie.getCinemas().add(this);
+        }
     }
+
     public void removeMovie(Movie movie) {
         this.movies.remove(movie);
         movie.getCinemas().remove(this);
+    }
+
+    public void addScreen(CinemaScreen screen) {
+        if (!this.screens.contains(screen)) {
+            this.screens.add(screen);
+            screen.setCinema(this);
+        }
+    }
+
+    public void removeScreen(CinemaScreen screen) {
+        this.screens.remove(screen);
+        screen.setCinema(null);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Cinema cinema)) return false;
+        return id != null && id.equals(cinema.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 
     @Override

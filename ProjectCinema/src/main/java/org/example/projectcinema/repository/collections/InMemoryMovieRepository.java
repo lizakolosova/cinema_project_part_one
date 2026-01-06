@@ -10,6 +10,9 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
 @Repository
@@ -18,13 +21,14 @@ public class InMemoryMovieRepository implements MovieRepository {
 
     private static final Logger logger = LoggerFactory.getLogger(InMemoryMovieRepository.class);
 
-    private final List<Movie> movies = new ArrayList<>();
-    private long currentId = 1;
+    private final List<Movie> movies = new CopyOnWriteArrayList<>();
+    private final AtomicLong currentId = new AtomicLong(1);
+
 
     @Override
     public List<Movie> findAll() {
         logger.info("Fetching all movies. Total number of movies: {}", movies.size());
-        return movies;
+        return new ArrayList<>(movies);
     }
 
     @Override
@@ -37,17 +41,21 @@ public class InMemoryMovieRepository implements MovieRepository {
         }
 
         if (movie.getId() == null) {
-            movie.setId(currentId++);
+            movie.setId(currentId.getAndIncrement());
+            movies.add(movie);
+            logger.info("Movie '{}' created. Total: {}", movie.getTitle(), movies.size());
+        } else {
+            movies.removeIf(m -> Objects.equals(m.getId(), movie.getId()));
+            movies.add(movie);
+            logger.info("Movie '{}' updated. Total: {}", movie.getTitle(), movies.size());
         }
 
-        movies.add(movie);
-        logger.info("Movie '{}' has been successfully saved. Total number of movies: {}", movie.getTitle(), movies.size());
         return movie;
     }
 
     @Override
     public void deleteById(Long id) {
-        boolean removed = movies.removeIf(movie -> movie.getId() == id);
+        boolean removed = movies.removeIf(movie -> Objects.equals(movie.getId(), id));
         if (removed) {
             logger.info("Movie with id {} was successfully deleted.", id);
         } else {
@@ -58,16 +66,15 @@ public class InMemoryMovieRepository implements MovieRepository {
     public Movie findByIdWithCinemas(Long id) {
         logger.debug("Fetching movie with ID {} with cinemas.", id);
         return movies.stream()
-                .filter(movie -> movie.getId() == id)
+                .filter(movie -> Objects.equals(movie.getId(), id))
                 .findFirst()
                 .orElse(null);
     }
 
     @Override
     public Movie findByTitle(String title) {
-        logger.debug("Fetching cinema by title {}.", title);
         return movies.stream()
-                .filter(movie -> movie.getTitle() == title)
+                .filter(movie -> movie.getTitle().equals(title))
                 .findFirst()
                 .orElse(null);
     }

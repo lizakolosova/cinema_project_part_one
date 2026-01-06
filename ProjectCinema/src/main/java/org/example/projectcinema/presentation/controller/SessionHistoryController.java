@@ -1,7 +1,7 @@
 package org.example.projectcinema.presentation.controller;
 
 import jakarta.servlet.http.HttpSession;
-import org.example.projectcinema.service.collections.SessionHistoryServiceImpl;
+import org.example.projectcinema.service.impl.SessionHistoryServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

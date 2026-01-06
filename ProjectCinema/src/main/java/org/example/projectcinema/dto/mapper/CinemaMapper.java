@@ -1,23 +1,18 @@
 package org.example.projectcinema.dto.mapper;
 
 import org.example.projectcinema.domain.Cinema;
-import org.example.projectcinema.dto.*;
-import org.springframework.stereotype.Component;
+import org.example.projectcinema.dto.CinemaDTO;
+import org.example.projectcinema.dto.CinemaSummaryDTO;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
 public class CinemaMapper {
 
     public static CinemaDTO toDTO(Cinema cinema) {
-        List<CinemaScreenDTO> screenDTOs = cinema.getScreens().stream()
-                .map(CinemaScreenMapper::toDTO)
-                .collect(Collectors.toList());
-
-        List<MovieDTO> movieDTOs = cinema.getMovies().stream()
-                .map(MovieMapper::toDTO)
-                .collect(Collectors.toList());
+        if (cinema == null) {
+            return null;
+        }
 
         return new CinemaDTO(
                 cinema.getId(),
@@ -25,16 +20,53 @@ public class CinemaMapper {
                 cinema.getAddress(),
                 cinema.getCapacity(),
                 cinema.getImage(),
-                screenDTOs,
-                movieDTOs
+                cinema.getScreens() != null
+                        ? cinema.getScreens().stream()
+                        .map(CinemaScreenMapper::toSummaryDTO)
+                        .collect(Collectors.toList())
+                        : List.of(),
+                cinema.getMovies() != null
+                        ? cinema.getMovies().stream()
+                        .map(MovieMapper::toSummaryDTO)
+                        .collect(Collectors.toList())
+                        : List.of()
+        );
+    }
+
+    public static CinemaSummaryDTO toSummaryDTO(Cinema cinema) {
+        if (cinema == null) {
+            return null;
+        }
+
+        return new CinemaSummaryDTO(
+                cinema.getId(),
+                cinema.getName(),
+                cinema.getAddress(),
+                cinema.getCapacity(),
+                cinema.getImage()
         );
     }
 
     public static List<CinemaDTO> toDTOList(List<Cinema> cinemas) {
+        if (cinemas == null) {
+            return List.of();
+        }
+
         return cinemas.stream()
                 .map(CinemaMapper::toDTO)
                 .collect(Collectors.toList());
+    }
 
+    public static Cinema toEntity(CinemaDTO dto) {
+        if (dto == null) {
+            return null;
+        }
+
+        return new Cinema(
+                dto.name(),
+                dto.address(),
+                dto.capacity(),
+                dto.image()
+        );
     }
 }
-

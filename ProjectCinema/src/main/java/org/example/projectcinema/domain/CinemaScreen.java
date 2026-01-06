@@ -14,7 +14,7 @@ public class CinemaScreen {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
     private int screenNumber;
 
     @ManyToOne
@@ -44,15 +44,28 @@ public class CinemaScreen {
         this.screenType = screenType;
         this.size = size;
         this.movies = new ArrayList<>();
-        this.cinema = new Cinema();
     }
 
 
     public void addMovie(Movie movie) {
         if (!movies.contains(movie)) {
             this.movies.add(movie);
-            movie.addScreen(this);
         }
+        if(!movie.getScreens().contains(this)) {
+            movie.getScreens().add(this);
+        }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CinemaScreen screen)) return false;
+        return id != null && id.equals(screen.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 
     @Override
