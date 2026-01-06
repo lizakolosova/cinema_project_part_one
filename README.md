@@ -1,54 +1,262 @@
-Name: Liza Kolosova
+# Cinema Management System
 
-Explanation of domain and relations:
-My database looks like this: cinema - cinemaScreen - movie and movie is also connected to cinema so I could have easier queries. Cinema - cinemascreen is one to many, so one cinema can have multiple screens. Cinemascreen - movie is many to many and movie - cinema is many to many.
+Spring Boot application for managing cinemas, movies, and their relationships with multiple data persistence implementations.
 
-Explanation of profiles:
-Collections: I don't use any database here. It's like an array where I add more elements (cinemas or movies).
+## Project Overview:
 
-Database: -
+This cinema management system demonstrates advanced Spring Boot concepts including:
+- **Multiple repository implementations** (Collections, JDBC, JPA, Spring Data JPA)
+- **Profile-based configuration** for different environments
+- **Bidirectional relationships** with proper cascade management
+- **Thymeleaf** server-side rendering
+- **Global exception handling**
+- **Session management** with visit history tracking
+- **Data export** capabilities (JSON format)
 
-jdbc: It's H2 database, where I use schema.sql and data.sql. 
+---
 
-Database:
+## Features
 
-url=jdbc:h2:mem:cinemadb
+### Core Functionality:
+- **Cinema Management**: Create, view, update, and delete cinemas
+- **Movie Management**: Manage movie catalog with release dates, ratings, and genres
+- **Screen Management**: Track cinema screens with types and capacities
+- **Relationship Management**: Many-to-many relationships between movies, cinemas, and screens
+- **Filtering**: Filter by capacity, genre, rating, and release date
+- **Data Export**: Export cinemas and movies with relationships to JSON
 
-username=liza
+### Technical Features
+- **4 Repository Implementations**: Collections (in-memory), JDBC, JPA, Spring Data JPA
+- **Adapter Pattern**: Spring Data JPA integration via adapters
+- **DTO Pattern**: Service layer returns DTOs, accepts entities
+- **Profile-Based Config**: Switch between implementations via Spring profiles
+- **Automatic Data Seeding**: Each profile seeds initial test data
+- **Session Tracking**: Records user page visits
+- **Error Handling**: Custom error pages with detailed information
+- **UI**: Bootstrap 5
 
-password=password
+---
 
-dev:  It's H2 database, where I don't use schema.sql and data.sql anymore. I also use entity manager here.
+## Domain Model
 
-Database: 
+### Entity Relationships
 
-url=jdbc:h2:mem:cinemadb
+```
+Cinema (1) ----< (N) CinemaScreen (N) >----< (N) Movie
+   |                                              |
+   +---------------------(N)>----<(N)-------------+
+```
 
-username=liza
+### Entities
 
-password=password
+#### Cinema
+- **Fields**: `id`, `name`, `address`, `capacity`, `image`
+- **Relationships**:
+    - One-to-Many with `CinemaScreen`
+    - Many-to-Many with `Movie`
 
-prod: It's postgres database, I use entity manager here(JPA).
+#### Movie
+- **Fields**: `id`, `title`, `releaseDate`, `rating`, `genre`, `image`
+- **Relationships**:
+    - Many-to-Many with `Cinema`
+    - Many-to-Many with `CinemaScreen`
 
-Database:
+#### CinemaScreen
+- **Fields**: `id`, `screenNumber`, `screenType`, `size`
+- **Relationships**:
+    - Many-to-One with `Cinema`
+    - Many-to-Many with `Movie`
 
-url=jdbc:postgresql://localhost:5432/postgres
+### Relationship Design Rationale
 
-username=postgres
+**Cinema ↔ CinemaScreen** (One-to-Many)
+- One cinema can have multiple screens
+- Each screen belongs to exactly one cinema
 
-password=Student_1234
+**CinemaScreen ↔ Movie** (Many-to-Many)
+- Movies can be shown on multiple screens
+- Screens can show multiple movies
+
+**Cinema ↔ Movie** (Many-to-Many)
+- **Denormalized for query performance**
+- Allows fast querying of which movies show at which cinemas
+- Maintained automatically through bidirectional relationships
+
+---
+
+## Technology Stack
+
+### Backend
+- **Java 17**
+- **Spring Boot 3.3.4**
+- **Spring Data JPA**
+- **Hibernate 6.5.3**
+- **H2 Database** (in-memory for development)
+- **PostgreSQL** (for production)
+
+### Frontend
+- **Thymeleaf** (server-side templating)
+- **Bootstrap 5.3.0** (responsive UI framework)
+- **Bootstrap Icons** (iconography)
+- **Custom CSS** (animations and styling)
+
+### Build & Dependencies
+- **Maven** (dependency management)
+- **Lombok** (reduce boilerplate)
+- **Jackson** (JSON processing)
+
+---
+
+## Architecture
+
+### Repository Layer (4 Implementations)
+
+#### 1. Collections (In-Memory)
+- **Profile**: `collections`
+- **Storage**: `ConcurrentHashMap` for thread safety
+- **Use Case**: Testing, prototyping, no database required
+
+#### 2. JDBC
+- **Profile**: `jdbc`
+- **Database**: H2 (in-memory)
+- **Features**: Manual SQL queries, `JdbcTemplate`
+- **Schema**: Initialized via `schema.sql`
+- **Data**: Seeded via `JdbcDataRunner`
+
+#### 3. JPA (Manual)
+- **Profile**: `prod`, `dev`
+- **Database**: PostgreSQL (prod), H2 (dev)
+- **Features**: `EntityManager`, JPQL queries, manual transaction management
+- **Schema**: Auto-generated by Hibernate
+
+#### 4. Spring Data JPA
+- **Profile**: `JPA`
+- **Database**: PostgreSQL
+- **Features**: Repository interfaces, derived queries, custom `@Query` annotations
+- **Integration**: Adapter pattern to work with custom repository interfaces
+---
+
+## Spring Profiles
+
+### Profile Configuration
+
+| Profile | Database | Implementation | Use Case |
+|---------|----------|----------------|----------|
+| `collections` | None (in-memory) | HashMap | Testing without DB |
+| `jdbc` | H2 (in-memory) | JDBC Template | Manual SQL control |
+| `dev` | H2 (in-memory) | JPA (EntityManager) | Development |
+| `prod` | PostgreSQL | JPA (EntityManager) | Production |
+| `JPA` | PostgreSQL | Spring Data JPA | Modern Spring approach |
+
+### Switching Profiles
+
+**Option 1: application.properties**
+```properties
+spring.profiles.active=collections
+```
+
+**Option 2: Command Line**
+```bash
+mvn spring-boot:run -Dspring-boot.run.profiles=jdbc
+```
+
+**Option 3: IDE Configuration**
+```
+Active profiles: prod
+```
+
+### Database Configurations
+
+#### H2 (Development)
+```properties
+spring.datasource.url=jdbc:h2:mem:cinemadb
+spring.datasource.username=liza
+spring.datasource.password=password
+spring.jpa.hibernate.ddl-auto=create-drop
+```
+
+#### PostgreSQL (Production)
+```properties
+spring.datasource.url=jdbc:postgresql://localhost:5432/postgres
+spring.datasource.username=postgres
+spring.datasource.password=Student_1234
+spring.jpa.hibernate.ddl-auto=update
+```
+
+---
+
+## Getting Started
+
+### Prerequisites
+- Java 17 or higher
+- Maven 3.8+
+- PostgreSQL 14+ (for `prod` and `JPA` profiles)
+- IDE (IntelliJ IDEA recommended)
+
+### Installation
+
+1. **Clone the repository**
+```bash
+git clone https://github.com/lizakolosova/cinema_project_part_one.git
+cd ProjectCinema
+```
+
+2. **Configure database (for prod/JPA profiles)**
+```bash
+psql -U postgres
+CREATE DATABASE cinemadb;
+```
+
+3. **Update database credentials**
+```properties
+spring.datasource.username=your_username
+spring.datasource.password=your_password
+```
+
+4. **Build the project**
+```bash
+mvn clean install
+```
+
+5. **Run the application**
+```bash
+# With collections profile (no database needed)
+mvn spring-boot:run -Dspring-boot.run.profiles=collections
+
+# With JDBC profile (H2 in-memory)
+mvn spring-boot:run -Dspring-boot.run.profiles=jdbc
+
+# With JPA profile (PostgreSQL required)
+mvn spring-boot:run -Dspring-boot.run.profiles=prod
+```
+
+6. **Access the application**
+```
+http://localhost:8080/home
+```
+
+### Quick Start (No Database)
+```bash
+mvn spring-boot:run -Dspring-boot.run.profiles=collections
+```
 
 
-JPA:Here I use JPA interface with postgres database.
+### Data Seeding
+Each profile automatically seeds test data on startup:
+- **Prevents duplicates**: Checks if data exists before seeding
+- **4 Cinemas**: Various locations and capacities
+- **4 Movies**: Different genres and ratings
+- **4 Screens**: Different types and sizes
+- **Relationships**: Movies linked to cinemas and screens
 
-Database:
-
-url=jdbc:postgresql://localhost:5432/postgres
-
-username=postgres
-
-password=Student_1234
-
-Any extra information needed to be able to run the project smoothly: Just use /home and then you will have navbar to navigave through pages.
-
-From what I see, I did everything and I don't see any errors so far.
+## Future Enhancements
+Potential improvements:
+- [ ] User authentication & authorization (Spring Security)
+- [ ] Booking system for movie tickets
+- [ ] Advanced search with Elasticsearch
+- [ ] Caching layer (Redis)
+- [ ] REST API documentation (Swagger/OpenAPI)
+- [ ] Unit & integration tests (JUnit, Mockito)
+- [ ] Docker containerization
+- [ ] CI/CD pipeline
+- [ ] Monitoring & metrics (Actuator, Prometheus)
