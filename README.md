@@ -258,5 +258,5 @@ Potential improvements:
 - [ ] REST API documentation (Swagger/OpenAPI)
 - [ ] Unit & integration tests (JUnit, Mockito)
 - [ ] Docker containerization
-- [ ] CI/CD pipeline
+- [ ] CI/CD pipeline (done)
 - [ ] Monitoring & metrics (Actuator, Prometheus)

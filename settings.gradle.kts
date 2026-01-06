@@ -1,0 +1,1 @@
+rootProject.name = "cinema_project_part_one"
